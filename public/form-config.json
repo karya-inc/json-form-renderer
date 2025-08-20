@@ -1,0 +1,58 @@
+{
+  "formTitle": "Registration Form",
+  "submitEndpoint": "/api/submit-form",
+  "redirectEndpoint": "/api/redirect",
+  "redirectUrl": "https://example.com/success",
+  "fields": [
+    {
+      "id": "name",
+      "type": "text",
+      "label": "Full Name",
+      "placeholder": "Enter your full name",
+      "required": true
+    },
+    {
+      "id": "yob",
+      "type": "number",
+      "label": "Year of Birth",
+      "placeholder": "e.g., 1990",
+      "required": true,
+      "min": 1900,
+      "max": 2024
+    },
+    {
+      "id": "gender",
+      "type": "select",
+      "label": "Gender",
+      "placeholder": "Select Gender",
+      "required": true,
+      "options": [
+        { "value": "male", "label": "Male" },
+        { "value": "female", "label": "Female" },
+        { "value": "other", "label": "Other" },
+        { "value": "prefer-not-to-say", "label": "Prefer not to say" }
+      ]
+    },
+    {
+      "id": "phone",
+      "type": "tel",
+      "label": "Phone Number",
+      "placeholder": "+1 (555) 123-4567",
+      "required": true
+    }
+  ],
+  "links": [
+    {
+      "text": "Privacy Policy",
+      "url": "https://example.com/privacy"
+    },
+    {
+      "text": "Terms of Service",
+      "url": "https://example.com/terms"
+    },
+    {
+      "text": "Contact Support",
+      "url": "https://example.com/support"
+    }
+  ]
+}
