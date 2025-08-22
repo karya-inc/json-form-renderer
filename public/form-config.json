@@ -1,58 +1,107 @@
 {
-  "formTitle": "Registration Form",
   "submitEndpoint": "/api/submit-form",
   "redirectEndpoint": "/api/redirect",
   "redirectUrl": "https://example.com/success",
   "fields": [
+    { "id": "name", "type": "text", "required": true },
+    { "id": "yob", "type": "number", "required": true, "min": 1900, "max": 2024 },
+    { "id": "gender", "type": "select", "required": true },
+    { "id": "phone", "type": "tel", "required": true },
+    { "id": "payment_method", "type": "select", "required": true },
     {
-      "id": "name",
+      "id": "bank_account_number",
       "type": "text",
-      "label": "Full Name",
-      "placeholder": "Enter your full name",
-      "required": true
-    },
-    {
-      "id": "yob",
-      "type": "number",
-      "label": "Year of Birth",
-      "placeholder": "e.g., 1990",
       "required": true,
-      "min": 1900,
-      "max": 2024
+      "showWhen": { "fieldId": "payment_method", "hasValue": "bank_account" }
     },
     {
-      "id": "gender",
-      "type": "select",
-      "label": "Gender",
-      "placeholder": "Select Gender",
+      "id": "ifsc_code",
+      "type": "text",
       "required": true,
-      "options": [
-        { "value": "male", "label": "Male" },
-        { "value": "female", "label": "Female" },
-        { "value": "other", "label": "Other" },
-        { "value": "prefer-not-to-say", "label": "Prefer not to say" }
-      ]
+      "showWhen": { "fieldId": "payment_method", "hasValue": "bank_account" }
     },
     {
-      "id": "phone",
-      "type": "tel",
-      "label": "Phone Number",
-      "placeholder": "+1 (555) 123-4567",
-      "required": true
+      "id": "upi_id",
+      "type": "text",
+      "required": true,
+      "showWhen": { "fieldId": "payment_method", "hasValue": "upi_id" }
     }
   ],
-  "links": [
-    {
-      "text": "Privacy Policy",
-      "url": "https://example.com/privacy"
+  "translations": {
+    "en": {
+      "pageTitle": "Registration Form for Conference",
+      "pageSubtitle": "Please fill out the form below to continue",
+      "cardTitle": "Registration Details",
+      "submitButtonText": "Submit Form",
+      "submittingButtonText": "Submitting...",
+      "loadingText": "Loading form...",
+      "fields": {
+        "name": { "label": "Full Name", "placeholder": "Enter your full name" },
+        "yob": { "label": "Year of Birth", "placeholder": "e.g., 1990" },
+        "gender": {
+          "label": "Gender",
+          "placeholder": "Select Gender",
+          "options": [
+            { "value": "male", "label": "Male" },
+            { "value": "female", "label": "Female" },
+            { "value": "other", "label": "Other" },
+            { "value": "prefer-not-to-say", "label": "Prefer not to say" }
+          ]
+        },
+        "phone": { "label": "Phone Number", "placeholder": "+1 (555) 123-4567" },
+        "payment_method": {
+          "label": "Payment Method",
+          "placeholder": "Select a Payment Method",
+          "options": [
+            { "value": "bank_account", "label": "Bank Account" },
+            { "value": "upi_id", "label": "UPI ID" }
+          ]
+        },
+        "bank_account_number": { "label": "Bank Account Number", "placeholder": "Enter your account number" },
+        "ifsc_code": { "label": "IFSC Code", "placeholder": "Enter your bank's IFSC code" },
+        "upi_id": { "label": "UPI ID", "placeholder": "Enter your UPI ID (e.g., name@okhdfc)" }
+      },
+      "links": [
+        { "text": "Privacy Policy", "url": "https://example.com/privacy" },
+        { "text": "Terms of Service", "url": "https://example.com/terms" }
+      ]
     },
-    {
-      "text": "Terms of Service",
-      "url": "https://example.com/terms"
-    },
-    {
-      "text": "Contact Support",
-      "url": "https://example.com/support"
+    "hi": {
+      "pageTitle": "सम्मेलन के लिए पंजीकरण फॉर्म",
+      "pageSubtitle": "जारी रखने के लिए कृपया नीचे दिया गया फॉर्म भरें",
+      "cardTitle": "पंजीकरण विवरण",
+      "submitButtonText": "फॉर्म जमा करें",
+      "submittingButtonText": "जमा हो रहा है...",
+      "loadingText": "फॉर्म लोड हो रहा है...",
+      "fields": {
+        "name": { "label": "पूरा नाम", "placeholder": "अपना पूरा नाम दर्ज करें" },
+        "yob": { "label": "जन्म का वर्ष", "placeholder": "उदा., 1990" },
+        "gender": {
+          "label": "लिंग",
+          "placeholder": "लिंग चुनें",
+          "options": [
+            { "value": "male", "label": "पुरुष" },
+            { "value": "female", "label": "महिला" },
+            { "value": "other", "label": "अन्य" }
+          ]
+        },
+        "phone": { "label": "फ़ोन नंबर", "placeholder": "+91 (555) 123-4567" },
+        "payment_method": {
+          "label": "भुगतान का तरीका",
+          "placeholder": "भुगतान का तरीका चुनें",
+          "options": [
+            { "value": "bank_account", "label": "बैंक खाता" },
+            { "value": "upi_id", "label": "यूपीआई आईडी" }
+          ]
+        },
+        "bank_account_number": { "label": "बैंक खाता संख्या", "placeholder": "अपना बैंक खाता नंबर दर्ज करें" },
+        "ifsc_code": { "label": "IFSC कोड", "placeholder": "अपना IFSC कोड दर्ज करें" },
+        "upi_id": { "label": "यूपीआई आईडी", "placeholder": "अपनी यूपीआई आईडी दर्ज करें" }
+      },
+      "links": [
+        { "text": "गोपनीयता नीति", "url": "https://example.com/privacy" },
+        { "text": "सेवा की शर्तें", "url": "https://example.com/terms" }
+      ]
     }
-  ]
+  }
 }
