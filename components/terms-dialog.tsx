@@ -1,9 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import { Loader } from "@/components/ui/loader"
 
 interface TermsDialogProps {
   onAccept: () => void
@@ -11,6 +14,23 @@ interface TermsDialogProps {
 
 export function TermsDialog({ onAccept }: TermsDialogProps) {
   const [isChecked, setIsChecked] = useState(false)
+  const [markdown, setMarkdown] = useState("")
+  const [isLoading, setIsLoading] = useState(true)
+
+  // Fetch the markdown content when the component mounts
+  useEffect(() => {
+    fetch('/terms.md')
+      .then(response => response.text())
+      .then(text => {
+        setMarkdown(text)
+        setIsLoading(false)
+      })
+      .catch(error => {
+        console.error("Failed to load terms and conditions:", error)
+        setMarkdown("Failed to load content. Please try again later.")
+        setIsLoading(false)
+      })
+  }, [])
 
   const handleAccept = () => {
     localStorage.setItem("termsAccepted", "true")
@@ -24,17 +44,19 @@ export function TermsDialog({ onAccept }: TermsDialogProps) {
           <DialogTitle>Terms and Conditions</DialogTitle>
         </DialogHeader>
         
-        {/* --- THE ROBUST IFRAME SOLUTION --- */}
-        {/* We add #toolbar=0 to the URL. This is a standard parameter that tells most */}
-        {/* modern browsers to hide their default PDF viewer toolbar (print, download, etc.) */}
-        <div className="flex-grow overflow-hidden border rounded-md bg-gray-100">
-          <iframe
-            src="/terms.pdf#toolbar=0"
-            title="Terms and Conditions PDF"
-            width="100%"
-            height="100%"
-            style={{ border: "none" }}
-          />
+        {/* Scrollable, beautifully styled markdown content area */}
+        <div className="flex-grow overflow-y-auto border rounded-md p-6 bg-gray-50">
+          {isLoading ? (
+            <div className="flex justify-center items-center h-full">
+              <Loader text="Loading Terms..." />
+            </div>
+          ) : (
+            <article className="prose prose-sm max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {markdown}
+              </ReactMarkdown>
+            </article>
+          )}
         </div>
 
         <DialogFooter className="flex-col sm:flex-col sm:space-x-0 items-start gap-4 pt-4">
@@ -50,7 +72,7 @@ export function TermsDialog({ onAccept }: TermsDialogProps) {
           <Button
             type="button"
             className="w-full bg-[#41B47D] hover:bg-[#41B47D]/90"
-            disabled={!isChecked}
+            disabled={!isChecked || isLoading}
             onClick={handleAccept}
           >
             Continue
