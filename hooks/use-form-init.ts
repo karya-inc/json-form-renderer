@@ -54,13 +54,20 @@ export function useFormConfig(language: Language) {
 /**
  * Hook to handle the entire geolocation process (coordinates and pincode).
  */
-export function useGeolocation() {
+export function useGeolocation({ enabled }: { enabled: boolean }) {
   const [status, setStatus] = useState<GeolocationStatus>("pending")
   const [locationData, setLocationData] = useState<{ latitude?: string; longitude?: string; pincode?: string }>({})
 
   useEffect(() => {
+    // If the hook is not enabled, do nothing.
+    if (!enabled) {
+      return
+    }
+
     const getGeolocationData = async () => {
       try {
+        // We are now actively fetching, so update the status for the UI
+        setStatus("pending");
         const { latitude, longitude } = await fetchGeolocation()
         setStatus("fetching_pincode")
         const pincode = await fetchPincode(latitude, longitude)
@@ -78,8 +85,11 @@ export function useGeolocation() {
         setStatus("denied")
       }
     }
+
     getGeolocationData()
-  }, [])
+    // This effect now depends on the `enabled` flag.
+    // It will re-run when `enabled` changes from false to true.
+  }, [enabled])
 
   return { geolocationStatus: status, locationData }
 }

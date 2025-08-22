@@ -53,8 +53,8 @@
           "label": "Payment Method",
           "placeholder": "Select a Payment Method",
           "options": [
-            { "value": "bank_account", "label": "Bank Account" },
-            { "value": "upi_id", "label": "UPI ID" }
+            { "value": "upi_id", "label": "UPI ID" },
+            { "value": "bank_account", "label": "Bank Account" }
           ]
         },
         "bank_account_number": { "label": "Bank Account Number", "placeholder": "Enter your account number" },
@@ -82,7 +82,8 @@
           "options": [
             { "value": "male", "label": "पुरुष" },
             { "value": "female", "label": "महिला" },
-            { "value": "other", "label": "अन्य" }
+            { "value": "other", "label": "अन्य" },
+            { "value": "prefer-not-to-say", "label": "कहना पसंद नहीं करता" }
           ]
         },
         "phone": { "label": "फ़ोन नंबर", "placeholder": "+91 (555) 123-4567" },
@@ -90,8 +91,8 @@
           "label": "भुगतान का तरीका",
           "placeholder": "भुगतान का तरीका चुनें",
           "options": [
-            { "value": "bank_account", "label": "बैंक खाता" },
-            { "value": "upi_id", "label": "यूपीआई आईडी" }
+            { "value": "upi_id", "label": "यूपीआई आईडी" },
+            { "value": "bank_account", "label": "बैंक खाता" }
           ]
         },
         "bank_account_number": { "label": "बैंक खाता संख्या", "placeholder": "अपना बैंक खाता नंबर दर्ज करें" },

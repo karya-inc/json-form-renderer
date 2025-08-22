@@ -29,7 +29,7 @@ export default function FormPage() {
   // Custom hooks manage all complex side-effect logic
   const { showTerms, acceptTerms } = useTerms()
   const { config, textContent, isLoadingConfig } = useFormConfig(language)
-  const { geolocationStatus, locationData } = useGeolocation()
+  const { geolocationStatus, locationData } = useGeolocation({enabled: !showTerms })
 
   // Effect to set initial language from browser settings
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function FormPage() {
           <Card className="border-2 border-[#41B47D]/20 shadow-lg py-0">
             <CardHeader className="bg-[#41B47D] text-white py-3 px-4"><h3 className="text-lg font-semibold">{textContent.cardTitle}</h3></CardHeader>
             <CardContent className="p-6 bg-[#C8E56E]/10">
-              {geolocationStatus !== 'success' && (
+              {!isFormDisabled && geolocationStatus !== 'success' && (
                 <div className="text-center p-2 mb-4 text-gray-700">
                   {geolocationStatus === 'pending' && <p>Requesting location...</p>}
                   {geolocationStatus === 'fetching_pincode' && <p>Fetching pincode...</p>}
