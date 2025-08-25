@@ -9,6 +9,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  basePath: '/conference_form',
+  trailingSlash: true
+
 }
 
 export default nextConfig
