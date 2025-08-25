@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react"
 import { fetchGeolocation, fetchPincode } from "@/helpers/geolocation"
 import type { FormConfig, Language, GeolocationStatus } from "@/types/form-types" // We will create this types file next
+import { useRouter } from "next/navigation"
 
 /**
  * Hook to manage the Terms & Conditions dialog state.
@@ -31,17 +32,20 @@ export function useTerms() {
 export function useFormConfig(language: Language) {
   const [config, setConfig] = useState<FormConfig | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-
   useEffect(() => {
-    fetch("/form-config.json")
-      .then((res) => res.json())
+    fetch("form-config.json") 
+      .then((res) => {
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json()
+      })
       .then((data: FormConfig) => setConfig(data))
       .catch((error) => {
         console.error("Failed to load form config:", error)
-        // Here you could use a toast notification
       })
       .finally(() => setIsLoading(false))
-  }, [])
+  }, []) 
 
   const textContent = useMemo(() => {
     if (!config) return null
