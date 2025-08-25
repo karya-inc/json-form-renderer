@@ -2,7 +2,6 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import dynamic from "next/dynamic"
 import { useFormConfig, useGeolocation, useTerms } from "@/hooks/use-form-init"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,11 +13,7 @@ import { Toaster } from "@/components/ui/toaster"
 import Image from "next/image"
 import { Loader } from "@/components/ui/loader"
 import type { Language } from "@/types/form-types"
-
-const TermsDialog = dynamic(() => import("@/components/terms-dialog").then((mod) => mod.TermsDialog), {
-  ssr: false,
-  loading: () => <Loader />,
-})
+import { TermsDialog } from "@/components/terms-dialog"
 
 export default function FormPage() {
   const [formData, setFormData] = useState<Record<string, string>>({})
@@ -77,7 +72,14 @@ export default function FormPage() {
   }
 
   const isFormDisabled = isLoadingConfig || geolocationStatus !== "success"
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  useEffect(() => {
+    setIsInitialLoad(false);
+  }, []);
 
+  if (isInitialLoad) {
+      return <Loader />;
+  }
   if (showTerms) {
     return <TermsDialog onAccept={acceptTerms} />
   }
