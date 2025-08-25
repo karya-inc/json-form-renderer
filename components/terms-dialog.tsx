@@ -19,7 +19,7 @@ export function TermsDialog({ onAccept }: TermsDialogProps) {
 
   // Fetch the markdown content when the component mounts
   useEffect(() => {
-    fetch('/terms.md')
+    fetch('terms.md')
       .then(response => response.text())
       .then(text => {
         setMarkdown(text)
