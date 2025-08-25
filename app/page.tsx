@@ -141,7 +141,7 @@ export default function FormPage() {
 
         <div className="text-center mb-8">
           <Image
-            src="/karya_web.svg"
+            src="karya_web.svg"
             alt="Karya Web Logo"
             width={120}
             height={60}
