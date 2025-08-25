@@ -1,5 +1,5 @@
 {
-  "submitEndpoint": "/api/submit-form",
+  "submitEndpoint": "http://localhost:3001/api/setParticipantData",
   "redirectEndpoint": "/api/redirect",
   "redirectUrl": "https://example.com/success",
   "fields": [
