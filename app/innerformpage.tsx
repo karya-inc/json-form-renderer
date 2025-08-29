@@ -48,15 +48,77 @@ export default function InnerFormPage() {
     setFormData(prev => ({ ...initialData, ...prev, ...locationData }))
   }, [locationData])
 
+  const validateField = (fieldId: string, value: string) => {
+    if (!config) return false;
+
+    const fieldConfig = config.fields.find(f => f.id === fieldId);
+    if (!fieldConfig) return true;
+
+    if (fieldConfig.required && !value) {
+      toast({
+        title: "Validation Error",
+        description: `${fieldConfig.id} is required.`,
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    switch (fieldConfig.type) {
+      case "text":
+        if (fieldId === "name") {
+          if (/[0-9]/.test(value)) {
+            toast({
+              title: "Invalid Input",
+              description: "Name should not contain numbers.",
+              variant: "destructive",
+            });
+            return false;
+          }
+        }
+        break;
+      case "number":
+        if (fieldId === "bank_acccount_number") {
+          if (!/[0-9]/.test(value)) {
+            toast({
+              title: "Invalid Input",
+              description: "Account number should only contain numbers.",
+              variant: "destructive",
+            });
+            return false;
+          }
+        }
+        break;
+    }
+    return true;
+  };
+
   const handleInputChange = (fieldId: string, value: string) => {
-    const newFormData = { ...formData, [fieldId]: value }
-    setFormData(newFormData)
-    localStorage.setItem("formData", JSON.stringify(newFormData))
-  }
+    if (!validateField(fieldId, value)) {
+      return;
+    }
+    const newFormData = { ...formData, [fieldId]: value };
+    setFormData(newFormData);
+    localStorage.setItem("formData", JSON.stringify(newFormData));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!config || geolocationStatus !== "success") return
+
+    for (const field of config.fields) {
+      if (field.showWhen) {
+        const controllingFieldValue = formData[field.showWhen.fieldId];
+        if (controllingFieldValue !== field.showWhen.hasValue) {
+          continue;
+        }
+      }
+
+      const value = formData[field.id] || "";
+      if (!validateField(field.id, value)) {
+        return;
+      }
+    }
+    
     setIsSubmitting(true)
     try {
       formData['room_name'] = roomName;

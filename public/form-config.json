@@ -10,7 +10,7 @@
     { "id": "payment_method", "type": "select", "required": true },
     {
       "id": "bank_account_number",
-      "type": "text",
+      "type": "number",
       "required": true,
       "showWhen": { "fieldId": "payment_method", "hasValue": "bank_account" }
     },
