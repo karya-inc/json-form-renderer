@@ -63,39 +63,40 @@ export default function InnerFormPage() {
       return false;
     }
 
-    switch (fieldConfig.type) {
-      case "text":
-        if (fieldId === "name") {
-          if (/[0-9]/.test(value)) {
-            toast({
-              title: "Invalid Input",
-              description: "Name should not contain numbers.",
-              variant: "destructive",
-            });
-            return false;
-          }
+    switch (fieldId) {
+      case "name":
+        if (!/^[\p{L}\p{M}\s]+$/u.test(value)) {
+          toast({
+            title: "Invalid Input",
+            description: "Name should only contain alphabets.",
+          });
+          return false;
         }
         break;
-      case "number":
-        if (fieldId === "bank_acccount_number") {
-          if (!/[0-9]/.test(value)) {
-            toast({
-              title: "Invalid Input",
-              description: "Account number should only contain numbers.",
-              variant: "destructive",
-            });
-            return false;
-          }
+
+      case "bank_acccount_number":
+        if (!/^\d+$/.test(value)) {
+          toast({
+            title: "Invalid Input",
+            description: "Account number should only contain numbers.",
+          });
+          return false;
         }
         break;
+
+      case "phone":
+        if (value.length !== 10 || !/^\d+$/.test(value)) {
+          toast({
+            title: "Invalid input",
+            description: "Phone number should be a 10 digit number",
+          })
+          return false;
+        }
     }
     return true;
   };
 
   const handleInputChange = (fieldId: string, value: string) => {
-    if (!validateField(fieldId, value)) {
-      return;
-    }
     const newFormData = { ...formData, [fieldId]: value };
     setFormData(newFormData);
     localStorage.setItem("formData", JSON.stringify(newFormData));
