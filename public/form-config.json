@@ -48,7 +48,7 @@
             { "value": "prefer-not-to-say", "label": "Prefer not to say" }
           ]
         },
-        "phone": { "label": "Phone Number", "placeholder": "+1 (555) 123-4567" },
+        "phone": { "label": "Phone Number", "placeholder": "123-456-7890" },
         "payment_method": {
           "label": "Payment Method",
           "placeholder": "Select a Payment Method",
@@ -86,7 +86,7 @@
             { "value": "prefer-not-to-say", "label": "कहना पसंद नहीं करता" }
           ]
         },
-        "phone": { "label": "फ़ोन नंबर", "placeholder": "+91 (555) 123-4567" },
+        "phone": { "label": "फ़ोन नंबर", "placeholder": "123-456-7890" },
         "payment_method": {
           "label": "भुगतान का तरीका",
           "placeholder": "भुगतान का तरीका चुनें",
