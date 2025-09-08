@@ -64,7 +64,9 @@
       "links": [
         { "text": "Privacy Policy", "url": "https://example.com/privacy" },
         { "text": "Terms of Service", "url": "https://example.com/terms" }
-      ]
+      ],
+      "termsTitle": "Terms and Conditions",
+      "termsAcceptLabel": "I have read and accept the terms and conditions."
     },
     "hi": {
       "pageTitle": "सम्मेलन के लिए पंजीकरण फॉर्म",
@@ -102,7 +104,9 @@
       "links": [
         { "text": "गोपनीयता नीति", "url": "https://example.com/privacy" },
         { "text": "सेवा की शर्तें", "url": "https://example.com/terms" }
-      ]
+      ],
+      "termsTitle": "नियम और शर्तें",
+      "termsAcceptLabel": "मैंने नियम और शर्तें पढ़ ली हैं और स्वीकार करता हूं."
     }
   }
 }

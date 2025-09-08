@@ -148,7 +148,7 @@ export default function InnerFormPage() {
       return <Loader />;
   }
   if (showTerms) {
-    return <TermsDialog onAccept={acceptTerms} />
+    return <TermsDialog lang={language} onAccept={acceptTerms} setLanguage={setLanguage} textContent={textContent} />
   }
 
   if (isLoadingConfig || !config || !textContent) {
