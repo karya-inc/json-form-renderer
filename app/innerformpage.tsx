@@ -123,18 +123,38 @@ export default function InnerFormPage() {
     setIsSubmitting(true)
     try {
       formData['room_name'] = roomName;
-      const submitResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_API || config.submitEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) })
-      if (!submitResponse.ok) throw new Error("Failed to submit form")
-      toast({ title: "Success!", description: "Form submitted successfully" })
-
+      const submitResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_API || config.submitEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+      
       const json = await submitResponse.json();
+      if (!submitResponse.ok) {
+        throw new Error(json.error);
+      }
+      toast({ title: "Success!", description: "Form submitted successfully" })
 
       if (submitResponse.ok) {
         window.location.href = json.url || config.redirectUrl
-      } else { window.location.href = config.redirectUrl }
+      } else {
+        window.location.href = config.redirectUrl;
+      }
     } catch (error) {
       console.error("Form submission error:", error)
-      toast({ title: "Error", description: "Failed to submit form. Please try again.", variant: "destructive" })
+      if (error instanceof Error) {
+        toast({
+          title: "Error",
+          description: error.message
+        })
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to submit form. Please try again."
+        })
+      }
     } finally { setIsSubmitting(false) }
   }
 
