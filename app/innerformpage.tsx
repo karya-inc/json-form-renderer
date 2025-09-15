@@ -58,7 +58,6 @@ export default function InnerFormPage() {
       toast({
         title: "Validation Error",
         description: `${fieldConfig.id} is required.`,
-        variant: "destructive",
       });
       return false;
     }
