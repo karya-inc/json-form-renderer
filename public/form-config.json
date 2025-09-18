@@ -56,6 +56,7 @@
           "defaultValue": "I don't know",
           "options": [
             {"value": "unknown", "label": "I don't know"},
+            {"value": "hindi", "label": "Hindi"},
             {"value": "awadhi-language", "label": "Awadhi language"},
             {"value": "bagheli-language", "label": "Bagheli language"},
             {"value": "bagri-language", "label": "Bagri language"},
@@ -145,6 +146,7 @@
           "placeholder": "कोई बोली चुनें",
           "options": [
             {"value": "unknown", "label": "पता नहीं"},
+            {"value": "hindi", "label": "हिंदी"},
             {"value": "awadhi-language", "label": "अवधी"},
             {"value": "bagheli-language", "label": "बघेली"},
             {"value": "bagri-language", "label": "बागड़ी"},
