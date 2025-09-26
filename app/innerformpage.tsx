@@ -27,7 +27,7 @@ export default function InnerFormPage() {
   // Custom hooks manage all complex side-effect logic
   const { showTerms, acceptTerms } = useTerms()
   const { config, textContent, isLoadingConfig } = useFormConfig(language)
-  const { geolocationStatus, locationData } = useGeolocation({enabled: !showTerms })
+  const { locationData } = useGeolocation({enabled: !showTerms })
 
   // Effect to set initial language from browser settings
   useEffect(() => {
@@ -91,6 +91,16 @@ export default function InnerFormPage() {
           })
           return false;
         }
+        break;
+      
+      case "user_submitted_pincode":
+        if (value.length !== 6 || !/^\d+$/.test(value)) {
+          toast({
+            title: "Invalid input",
+            description: "Pincode should be a 6 digit number",
+          })
+          return false;
+        }
     }
     return true;
   };
@@ -103,7 +113,7 @@ export default function InnerFormPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!config || geolocationStatus !== "success") return
+    if (!config) return
 
     for (const field of config.fields) {
       if (field.showWhen) {
@@ -157,7 +167,7 @@ export default function InnerFormPage() {
     } finally { setIsSubmitting(false) }
   }
 
-  const isFormDisabled = isLoadingConfig || geolocationStatus !== "success"
+  const isFormDisabled = isLoadingConfig
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   useEffect(() => {
     setIsInitialLoad(false);
@@ -212,19 +222,6 @@ export default function InnerFormPage() {
               <h3 className="text-lg font-semibold">{textContent.cardTitle}</h3>
             </CardHeader>
             <CardContent className="p-6 bg-[#C8E56E]/10">
-              {!isFormDisabled && geolocationStatus !== "success" && (
-                <div className="text-center p-2 mb-4 text-gray-700">
-                  {geolocationStatus === "pending" && (
-                    <p>Requesting location...</p>
-                  )}
-                  {geolocationStatus === "fetching_pincode" && (
-                    <p>Fetching pincode...</p>
-                  )}
-                  {geolocationStatus === "denied" && (
-                    <p className="text-red-600">Location access is required.</p>
-                  )}
-                </div>
-              )}
               <form onSubmit={handleSubmit} className="space-y-6">
                 <fieldset disabled={isFormDisabled} className="space-y-6">
                   {config.fields.map((field) => {

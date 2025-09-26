@@ -7,6 +7,7 @@
     { "id": "yob", "type": "number", "required": true, "min": 1900, "max": 2024 },
     { "id": "gender", "type": "select", "required": true },
     { "id": "phone", "type": "tel", "required": true },
+    { "id": "user_submitted_pincode", "type": "number", "required": true },
     { "id": "dialect", "type": "select", "required": true},
     { "id": "payment_method", "type": "select", "required": true },
     {
@@ -50,6 +51,7 @@
           ]
         },
         "phone": { "label": "Phone Number", "placeholder": "123-456-7890" },
+        "user_submitted_pincode": { "label": "Pincode", "placeholder": "123123" },
         "dialect": {
           "label": "Dialect",
           "placeholder": "Select a dialect",
@@ -141,6 +143,7 @@
           ]
         },
         "phone": { "label": "फ़ोन नंबर", "placeholder": "123-456-7890" },
+        "user_submitted_pincode": { "label": "पिन कोड", "placeholder": "123123" },
         "dialect": {
           "label": "बोली",
           "placeholder": "कोई बोली चुनें",
